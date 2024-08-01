@@ -11,3 +11,8 @@ FACIAL_LANDMARK_WINDOW_NAME = "Facial Landmark Detection"
 
 # Constants for face filters
 BLUR_KERNEL_SIZE = (31, 31)  # Kernel size for the blur filter
+
+# Constants for filter selection keys
+FILTER_NONE_KEY = "0"
+FILTER_LANDMARK_KEY = "1"
+FILTER_BLUR_KEY = "2"
