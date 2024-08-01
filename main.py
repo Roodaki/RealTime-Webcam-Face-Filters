@@ -1,14 +1,14 @@
-from src.webcam_capture import open_webcam_capture
+from src.webcam_capture import open_webcam_with_landmark_detection
 
 
 def main():
     """
-    Main function to start the webcam capture.
+    Main function to start the webcam capture with facial landmark detection.
 
-    This function acts as the entry point of the program and starts the webcam capture by calling the
-    open_webcam_capture function.
+    This function acts as the entry point of the program and starts the webcam capture
+    with facial landmark detection by calling the open_webcam_with_landmark_detection function.
     """
-    open_webcam_capture()
+    open_webcam_with_landmark_detection()
 
 
 if __name__ == "__main__":
