@@ -1,5 +1,3 @@
-# src/webcam_capture.py
-
 import cv2
 from src.webcam_constants import (
     WEBCAM_INDEX,
@@ -9,9 +7,10 @@ from src.webcam_constants import (
     FILTER_NONE_KEY,
     FILTER_LANDMARK_KEY,
     FILTER_BLUR_KEY,
+    FILTER_SUNGLASSES_KEY,
 )
 from src.facial_landmark_detection import detect_facial_landmarks, draw_facial_landmarks
-from src.face_filters import apply_blur_filter
+from src.face_filters import apply_blur_filter, apply_sunglasses_filter
 
 
 def open_webcam_with_filter_switching():
@@ -19,7 +18,7 @@ def open_webcam_with_filter_switching():
     Opens the webcam and starts capturing video frames with real-time filter switching.
 
     The function captures video from the default webcam, allows the user to switch
-    between plain, facial landmark detection, and blur filter in real-time,
+    between plain, facial landmark detection, blur filter, and sunglasses filter in real-time,
     and exits when the specified exit key is pressed.
     """
     video_capture = cv2.VideoCapture(WEBCAM_INDEX)
@@ -42,6 +41,9 @@ def open_webcam_with_filter_switching():
         elif current_filter == FILTER_BLUR_KEY:
             landmarks = detect_facial_landmarks(frame)
             frame = apply_blur_filter(frame, landmarks)
+        elif current_filter == FILTER_SUNGLASSES_KEY:
+            landmarks = detect_facial_landmarks(frame)
+            frame = apply_sunglasses_filter(frame, landmarks)
 
         cv2.imshow(WINDOW_NAME, frame)
 
@@ -54,6 +56,8 @@ def open_webcam_with_filter_switching():
             current_filter = FILTER_LANDMARK_KEY
         elif key == ord(FILTER_BLUR_KEY):
             current_filter = FILTER_BLUR_KEY
+        elif key == ord(FILTER_SUNGLASSES_KEY):
+            current_filter = FILTER_SUNGLASSES_KEY
 
     video_capture.release()
     cv2.destroyAllWindows()

@@ -1,5 +1,3 @@
-# src/webcam_constants.py
-
 # Constants for webcam capture
 WEBCAM_INDEX = 0  # Default webcam index
 EXIT_KEY = "q"  # Key to press to exit the webcam feed
@@ -16,3 +14,7 @@ BLUR_KERNEL_SIZE = (31, 31)  # Kernel size for the blur filter
 FILTER_NONE_KEY = "0"
 FILTER_LANDMARK_KEY = "1"
 FILTER_BLUR_KEY = "2"
+FILTER_SUNGLASSES_KEY = "3"  # Key to press for sunglasses filter
+
+# Path to assets
+SUNGLASSES_IMAGE_PATH = "assets/sunglasses.png"
