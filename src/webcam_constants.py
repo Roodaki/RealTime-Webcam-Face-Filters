@@ -14,7 +14,9 @@ BLUR_KERNEL_SIZE = (31, 31)  # Kernel size for the blur filter
 FILTER_NONE_KEY = "0"
 FILTER_LANDMARK_KEY = "1"
 FILTER_BLUR_KEY = "2"
-FILTER_SUNGLASSES_KEY = "3"  # Key to press for sunglasses filter
+FILTER_SUNGLASSES_KEY = "3"
+FILTER_MUSTACHE_KEY = "4"
 
 # Path to assets
 SUNGLASSES_IMAGE_PATH = "assets/sunglasses.png"
+MUSTACHE_IMAGE_PATH = "assets/mustache.png"

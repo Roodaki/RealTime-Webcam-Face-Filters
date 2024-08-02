@@ -1,5 +1,3 @@
-# src/main.py
-
 from src.webcam_capture import open_webcam_with_filter_switching
 
 
