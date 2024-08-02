@@ -70,6 +70,23 @@ def apply_sunglasses_filter(frame, landmarks):
             interpolation=cv2.INTER_AREA,
         )
 
+        # Calculate the angle between the eyes (invert the sign for correct direction)
+        eye_delta_x = right_eye[0] - left_eye[0]
+        eye_delta_y = right_eye[1] - left_eye[1]
+        angle = -np.degrees(np.arctan2(eye_delta_y, eye_delta_x))  # Inverted sign
+
+        # Rotate the sunglasses image
+        M = cv2.getRotationMatrix2D(
+            (sunglasses_width // 2, sunglasses_height // 2), angle, 1.0
+        )
+        rotated_sunglasses = cv2.warpAffine(
+            resized_sunglasses,
+            M,
+            (sunglasses_width, sunglasses_height),
+            flags=cv2.INTER_LINEAR,
+            borderMode=cv2.BORDER_REPLICATE,
+        )
+
         # Calculate the position to overlay the sunglasses
         center = np.mean([left_eye, right_eye], axis=0).astype(int)
         top_left = (
@@ -85,7 +102,7 @@ def apply_sunglasses_filter(frame, landmarks):
 
         # Adjust the region of interest (ROI) in the frame
         roi = frame[top_left_y:bottom_right_y, top_left_x:bottom_right_x]
-        sunglasses_roi = resized_sunglasses[
+        sunglasses_roi = rotated_sunglasses[
             top_left_y - top_left[1] : bottom_right_y - top_left[1],
             top_left_x - top_left[0] : bottom_right_x - top_left[0],
         ]
