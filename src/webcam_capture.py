@@ -9,7 +9,14 @@ from src.webcam_constants import (
     FILTER_BLUR_KEY,
     FILTER_SUNGLASSES_KEY,
     FILTER_MUSTACHE_KEY,
+    MENU_TEXT,
+    MENU_POSITION,
+    MENU_FONT,
+    MENU_FONT_SCALE,
+    MENU_FONT_THICKNESS,
+    MENU_COLOR,
 )
+
 from src.facial_landmark_detection import detect_facial_landmarks, draw_facial_landmarks
 from src.face_filters import (
     apply_blur_filter,
@@ -24,7 +31,7 @@ def open_webcam_with_filter_switching():
 
     The function captures video from the default webcam, allows the user to switch
     between plain, facial landmark detection, blur filter, sunglasses filter, and mustache filter in real-time,
-    and exits when the specified exit key is pressed.
+    and exits when the specified exit key is pressed. An on-screen menu is displayed to guide the user.
     """
     video_capture = cv2.VideoCapture(WEBCAM_INDEX)
     if not video_capture.isOpened():
@@ -49,9 +56,21 @@ def open_webcam_with_filter_switching():
         elif current_filter == FILTER_SUNGLASSES_KEY:
             landmarks = detect_facial_landmarks(frame)
             frame = apply_sunglasses_filter(frame, landmarks)
-        elif current_filter == FILTER_MUSTACHE_KEY:  # Apply mustache filter
+        elif current_filter == FILTER_MUSTACHE_KEY:
             landmarks = detect_facial_landmarks(frame)
             frame = apply_mustache_filter(frame, landmarks)
+
+        # Draw the on-screen menu
+        for i, line in enumerate(MENU_TEXT.split("\n")):
+            cv2.putText(
+                frame,
+                line,
+                (MENU_POSITION[0], MENU_POSITION[1] + i * 20),
+                MENU_FONT,
+                MENU_FONT_SCALE,
+                MENU_COLOR,
+                MENU_FONT_THICKNESS,
+            )
 
         cv2.imshow(WINDOW_NAME, frame)
 
